@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "broadcast-news-tg"
+version = "0.1.0"
+description = ""
+authors = ["Andrey Kazackov <AndreyKazackoB@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+telegram = "^0.0.1"
+telebot = "^0.0.5"
+pytelegrambotapi = "^4.18.1"
+environs = "^11.0.0"
+aiogram = "^3.7.0"
+sqlalchemy = "^2.0.30"
+alembic = "^1.13.1"
+psycopg2 = "^2.9.9"
+pika = "^1.3.2"
+aio-pika = "^9.4.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
