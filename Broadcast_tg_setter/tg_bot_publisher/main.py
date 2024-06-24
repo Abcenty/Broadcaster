@@ -1,14 +1,3 @@
-# import telebot
-
-# # Замените 'YOUR_BOT_TOKEN' на токен вашего бота
-
-# bot=telebot.TeleBot('7340346900:AAFbGTLUz4mIKdu2R3rE6gmBgpebHz7rfnc')
-# # Список каналов, в которые нужно отправить сообщение
-# channels = ['@test_cahnnel_71', '@test_channel_81']
-
-# # Отправка сообщения в каждый канал
-# for channel in channels:
-#     bot.send_message(chat_id=channel, text='Ваше сообщение здесь')
 import asyncio
 import logging
 
