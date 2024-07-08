@@ -25,7 +25,14 @@ class Postgres:
     @property
     def DATABASE_URL_psycopg(self):
         return f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
-    
+
+@dataclass
+class S3Client:
+    access_key: str
+    secret_key: str
+    endpoint_url: str
+    bucket_name: str
+
 
 @dataclass
 class Config:
@@ -33,6 +40,7 @@ class Config:
     postgres: Postgres
     rabbit_mq: RabbitMQ
     sender: str
+    s3_client: S3Client
     
 
 
@@ -56,7 +64,13 @@ def load_config(path: str | None = None) -> Config:
                       AMQP_PASS=env('AMQP_PASS'),
                       AMQP_HOST=env('AMQP_HOST'),
                     ),
-                  sender=env('SENDER')
+                  sender=env('SENDER'),
+                  s3_client=S3Client(
+                      access_key=env('S3_ACCESS_KEY'),
+                      secret_key=env('S3_SECRET_KEY'),
+                      endpoint_url=env('S3_URL'),
+                      bucket_name=env('S3_BUCKET_NAME'),
+                  )
                   )
 
 # Загружаем конфиг в переменную config

@@ -7,6 +7,8 @@ from aio_pika.abc import AbstractIncomingMessage
 from bot import get_bot
 from services.queries.channel.orm import ChannelGateway
 from config_data.config import settings
+from services.s3.dependency import s3_client
+from aiogram.types import InputFile 
 
 bot = get_bot()
 logger = logging.getLogger(__name__)
@@ -16,10 +18,11 @@ async def on_message(message: AbstractIncomingMessage) -> None:
         for channel in ChannelGateway.list():
             try:
                 try:
-                    print(channel.name, "".join(bytes.decode(message.body, encoding='utf-8')))
-                    await bot.send_photo(channel.name, "".join(bytes.decode(message.body, encoding='utf-8')))
+                    photo = s3_client.download_file("".join(bytes.decode(message.body, encoding='utf-8')))
+                    logger.info(f'Inside photo processing: {photo}')
+                    await bot.send_photo(channel.name, photo) # await s3_client.download_file(photo)
                 except:
-                    await bot.send_message(channel.name, "".join(bytes.decode(message.body, encoding='utf-8')))
+                    # await bot.send_message(channel.name, "".join(bytes.decode(message.body, encoding='utf-8')))
                     pass
             except TelegramBadRequest:
                 continue
