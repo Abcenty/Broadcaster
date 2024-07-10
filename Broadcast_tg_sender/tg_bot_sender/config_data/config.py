@@ -32,6 +32,7 @@ class S3Client:
     secret_key: str
     endpoint_url: str
     bucket_name: str
+    s3_signature: str
 
 
 @dataclass
@@ -68,6 +69,7 @@ def load_config(path: str | None = None) -> Config:
                       secret_key=env('S3_SECRET_KEY'),
                       endpoint_url=env('S3_URL'),
                       bucket_name=env('S3_BUCKET_NAME'),
+                      s3_signature=env('S3_BUCKET_SIGNATURE'),
                   )
                   )
 

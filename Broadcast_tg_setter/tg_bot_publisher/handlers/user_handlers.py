@@ -64,11 +64,10 @@ async def process_broadcast(message: Message, state: FSMContext):
 async def process_broadcast_photo(message: Message, state: FSMContext):
     username = message.from_user.username
     if UserGateway.get_accessed(username):
-        # await bot.send_photo(settings.sender, message.photo[-1].file_id)
         file = await bot.get_file(message.photo[-1].file_id)
         file_path = file.file_path
         bfile = await bot.download_file(file_path)
-        await s3_client.upload_file(file_path=file_path, file=bfile)
+        s3_client.upload_file(file_path=file_path, file=bfile)
         await set_task(file_path)
         await message.answer(text=LEXICON_RU['broadcast_succes'])
         await state.clear()

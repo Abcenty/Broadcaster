@@ -1,6 +1,4 @@
-import asyncio
-from contextlib import asynccontextmanager
-from aiobotocore.session import get_session
+import boto3
 from config_data.config import settings
 
 class S3Client:
@@ -12,51 +10,31 @@ class S3Client:
             bucket_name: str,
     ):
         self.config = {
-                "aws_access_key_id": access_key,
-                "aws_secret_access_key": secret_key,
-                "endpoint_url": endpoint_url,
-            }
+        "aws_access_key_id": access_key,
+        "aws_secret_access_key": secret_key,
+        "endpoint_url": endpoint_url,
+        }
         self.bucket_name = bucket_name
-        self.session = get_session()
-        
-    @asynccontextmanager
-    async def get_client(self):
-        async with self.session.create_client("s3", **self.config) as client:
-            yield client
-            
-    async def download_file(
-            self,
-            file_path: str,
-    ):
-        print(file_path)
-        object_name = file_path.split("/")[-1]
-        try:
-            async with self.get_client() as client:
-                await client.get_object(
-                    Bucket=self.bucket_name,
-                    Key=object_name,
-                )
-        except:
-            raise
         
         
-    async def delete_file(
-            self,
-            file_path: str,
-    ):
-        print(file_path)
-        object_name = file_path.split("/")[-1]
-        try:
-            async with self.get_client() as client:
-                with open(file_path, "rb") as file:
-                    object = await client.delete_object(
-                        Bucket=self.bucket_name,
-                        Key=object_name,
+    def get_client(self):
+        return boto3.client('s3',
+                        aws_access_key_id=self.config.get("aws_access_key_id"),
+                        aws_secret_access_key=self.config.get("aws_secret_access_key"),
+                        endpoint_url=self.config.get("endpoint_url"),
                     )
+        
+    def download_file(self, file_path):
+        object_name = file_path.split("/")[-1]
+        try:
+            
+            return self.get_client().get_object(
+                Bucket=self.bucket_name,
+                Key=object_name,
+            )
         except:
             raise
-        
-        
+ 
 s3_client = S3Client(
                 access_key=settings.s3_client.access_key,
                 secret_key=settings.s3_client.secret_key,
