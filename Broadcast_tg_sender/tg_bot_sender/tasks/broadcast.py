@@ -13,21 +13,18 @@ logger = logging.getLogger(__name__)
 
 async def on_message(message: AbstractIncomingMessage) -> None:
     async with message.process():
+        encode_list = "".join(bytes.decode(message.body, encoding='utf-8')).split(",")
+        message_dict = {}
+        for kw in encode_list:
+            logger.info(f'KW: {kw.split(":")}')
+            message_dict[kw.split(":")[0]] = kw.split(":")[1]
+        logger.info(f'Format message: {message_dict}')
         for channel in ChannelGateway.list():
-            try:
-                try:
-                    photo_url = settings.s3_client.s3_signature +"".join(
-                        bytes.decode(message.body, encoding='utf-8')).split("/")[-1]
-                    logger.info(f'URL: {photo_url}')
-                    await bot.send_photo(channel.name, photo_url, caption='Пушкин')
-                    
-                except:
-                    await bot.send_message(channel.name, "".join(bytes.decode(message.body, encoding='utf-8')))
-                    pass
-            except TelegramBadRequest:
-                continue
-            except:
-                continue
+            if message_dict['type'] == 'photo':
+                photo_url = settings.s3_client.s3_signature + message_dict['file_path']
+                await bot.send_photo(channel.name, photo_url, caption='Пушкин')
+            if message_dict['type'] == 'text':
+                await bot.send_message(channel.name, "".join(bytes.decode(message.body, encoding='utf-8')))
 
 
 async def broadcast() -> None:

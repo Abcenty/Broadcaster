@@ -3,6 +3,7 @@ from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.state import default_state, State, StatesGroup
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
+from services.utills.message_former import format_message
 from keyboards.keyboards import interface_buttons
 from lexicon.lexicon_ru import LEXICON_RU
 from services.queries.users.orm import UserGateway
@@ -68,7 +69,7 @@ async def process_broadcast_photo(message: Message, state: FSMContext):
         file_path = file.file_path
         bfile = await bot.download_file(file_path)
         s3_client.upload_file(file_path=file_path, file=bfile)
-        await set_task(file_path)
+        await set_task(format_message())
         await message.answer(text=LEXICON_RU['broadcast_succes'])
         await state.clear()
     else:
