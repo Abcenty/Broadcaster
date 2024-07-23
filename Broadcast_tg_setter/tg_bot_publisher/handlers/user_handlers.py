@@ -3,7 +3,7 @@ from aiogram.filters import Command, CommandStart, StateFilter
 from aiogram.fsm.state import default_state, State, StatesGroup
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
-from services.utills.message_former import format_message
+from services.utills.message_former import MessageType, format_message
 from keyboards.keyboards import interface_buttons
 from lexicon.lexicon_ru import LEXICON_RU
 from services.queries.users.orm import UserGateway
@@ -54,7 +54,7 @@ async def process_start_broadcast(message: Message, state: FSMContext):
 async def process_broadcast(message: Message, state: FSMContext):
     username = message.from_user.username
     if UserGateway.get_accessed(username):
-        await set_task(message.text)
+        await set_task(format_message(type='text', text=message.text))
         await message.answer(text=LEXICON_RU['broadcast_succes'])
         await state.clear()
     else:
@@ -69,7 +69,8 @@ async def process_broadcast_photo(message: Message, state: FSMContext):
         file_path = file.file_path
         bfile = await bot.download_file(file_path)
         s3_client.upload_file(file_path=file_path, file=bfile)
-        await set_task(format_message())
+        await set_task(format_message(type='photo', file_path=file_path.split("/")[-1],
+                                      text=message.caption if message.caption is not None else ""))
         await message.answer(text=LEXICON_RU['broadcast_succes'])
         await state.clear()
     else:
