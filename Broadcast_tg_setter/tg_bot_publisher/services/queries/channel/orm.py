@@ -25,3 +25,10 @@ class ChannelGateway:
         with session_factory() as session:
             session.add(Channel(name=name))
             session.commit()
+            
+    @staticmethod
+    def delete(name: str):
+        with session_factory() as session:
+            query = session.query(Channel).filter(Channel.name == name).first()
+            session.delete(query)
+            session.commit()
