@@ -2,7 +2,9 @@ from aiogram.fsm.state import State, StatesGroup
 
 
 class FSMFillForm(StatesGroup):
-    start_broadcast = State()        
+    broadcast_management = State()
+    start_broadcast = State()    
+    channels_management = State()    
     add_channel = State()
     delete_channel = State()         
  

@@ -21,7 +21,7 @@ class UserGateway:
             return user
         
     @staticmethod
-    def get_accessed(username: str):
+    def get_is_authorized(username: str):
         with session_factory() as session:
             query = select(Users).where(Users.username == username, Users.access == True)
             result = session.execute(query)
