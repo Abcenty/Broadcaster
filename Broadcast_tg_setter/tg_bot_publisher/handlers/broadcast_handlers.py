@@ -94,3 +94,24 @@ async def process_broadcast_photo(message: Message, state: FSMContext):
     except:
         await message.answer(text=LEXICON_RU['broadcast_error'])
         logger.info('Error while processing broadcast with photo')
+        
+        
+# Этот хэндлер срабатывает на ввод изображения для рассылки с подписью или без
+@router.message(F.video, StateFilter(FSMFillForm.start_broadcast))
+async def process_broadcast_video(message: Message, state: FSMContext):
+    username = message.from_user.username
+    try:
+        if UserGateway.get_is_authorized(username):
+            file = await bot.get_file(message.video.file_id)
+            file_path = file.file_path
+            bfile = await bot.download_file(file_path)
+            s3_client.upload_file(file_path=file_path, file=bfile)
+            await set_task(format_message(type='video', file_path=file_path.split("/")[-1],
+                                        text=message.caption if message.caption is not None else ""))
+            await message.answer(text=LEXICON_RU['broadcast_success'], reply_markup=broadcast_buttons)
+            await state.set_state(FSMFillForm.broadcast_management)
+        else:
+            await message.answer(text=LEXICON_RU['/access_denied'])
+    except:
+        await message.answer(text=LEXICON_RU['broadcast_error'])
+        logger.info('Error while processing broadcast with photo')
