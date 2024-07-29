@@ -3,7 +3,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config_data.config import settings
 from sqlalchemy.orm import mapped_column
-# from sqlalchemy.ext.declarative import declarative_base
 
 # создаем синхронный движок, который будет создавать подключения к базе данных
 sync_engine = create_engine(
@@ -14,7 +13,3 @@ sync_engine = create_engine(
 )
 
 session_factory = sessionmaker(sync_engine)
-
-# Base = declarative_base()
-
-intpk = Annotated[int, mapped_column(primary_key=True)]
