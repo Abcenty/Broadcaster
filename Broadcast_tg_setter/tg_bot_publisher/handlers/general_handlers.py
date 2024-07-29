@@ -44,7 +44,9 @@ async def process_help_command(message: Message):
         logger.info('Error while getting help instruction') 
     
 # Этот хэндлер срабатывает на возврат в главное меню из панелей управления
-@router.message(F.text == LEXICON_RU['backward'], StateFilter(FSMFillForm.channels_management, FSMFillForm.broadcast_management))
+@router.message(F.text == LEXICON_RU['backward'], StateFilter(FSMFillForm.channels_management,
+                                                              FSMFillForm.broadcast_management,
+                                                              FSMFillForm.channel_group_management))
 async def process_backward(message: Message, state: FSMContext):
     username = message.from_user.username
     try:
@@ -57,7 +59,7 @@ async def process_backward(message: Message, state: FSMContext):
         else:
             await message.answer(text=LEXICON_RU['/access_denied'])
     except:
-        await message.answer(text=LEXICON_RU['bacward_error'])
+        await message.answer(text=LEXICON_RU['backward_error'])
         logger.info('Error while returning to main menu')
     
 
@@ -67,7 +69,7 @@ async def process_incorrect_message(message: Message):
     try:
         await message.answer(text=LEXICON_RU['other_answer'])
     except:
-        await message.answer(text=LEXICON_RU['bacward_error'])
+        await message.answer(text=LEXICON_RU['backward_error'])
         logger.info('Error while returning to main menu')
     
 

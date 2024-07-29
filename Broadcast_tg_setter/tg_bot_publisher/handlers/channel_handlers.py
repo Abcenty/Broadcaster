@@ -121,7 +121,7 @@ async def process_show_channels(message: Message):
         if UserGateway.get_is_authorized(username):
             await message.answer(text=LEXICON_RU['show_channels_answer'], reply_markup=channels_buttons)
             channels = [channel.name for channel in ChannelGateway.list()]
-            text = ", ".join (channels).replace(", ", "\n")
+            text = ", ".join(channels).replace(", ", "\n")
             await message.answer(text=text, reply_markup=channels_buttons)
         else:
             await message.answer(text=LEXICON_RU['/access_denied'])
