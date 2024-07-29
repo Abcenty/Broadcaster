@@ -85,7 +85,7 @@ async def process_add_channel(message: Message, state: FSMContext):
             if message.text == LEXICON_RU['backward']:
                 await message.answer(text=LEXICON_RU['backwarded'], reply_markup=channels_buttons)
             else:
-                ChannelGateway.create(message.text)
+                ChannelGateway.create(ChannelGateway, message.text)
                 await message.answer(text=LEXICON_RU['add_channel_success'], reply_markup=channels_buttons)
             await state.set_state(FSMFillForm.channels_management)
         else:

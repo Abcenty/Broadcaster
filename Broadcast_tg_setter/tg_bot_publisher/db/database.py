@@ -14,7 +14,3 @@ sync_engine = create_engine(
 )
 
 session_factory = sessionmaker(sync_engine)
-
-# Base = declarative_base()
-
-intpk = Annotated[int, mapped_column(primary_key=True)]

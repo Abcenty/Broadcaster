@@ -1,9 +1,10 @@
 from sqlalchemy import select
 from db.database import session_factory
 from db.models.user import Users
+from services.queries.base import BaseService
 
 
-class UserGateway:
+class UserGateway(BaseService):
     @staticmethod
     def list():
         with session_factory() as session:
@@ -28,8 +29,7 @@ class UserGateway:
             user = result.scalar()
             return user
         
-    @staticmethod
-    def create(username: str):
+    def create(self, username: str):
         with session_factory() as session:
-            session.add(Users(username=username))
+            session.add(Users(username=username, id=self.generate_id()))
             session.commit()

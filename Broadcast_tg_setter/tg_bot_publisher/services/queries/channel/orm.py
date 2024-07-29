@@ -1,9 +1,10 @@
 from sqlalchemy import select
 from db.database import session_factory
 from db.models.channel import Channel
+from services.queries.base import BaseService
 
 
-class ChannelGateway:
+class ChannelGateway(BaseService):
     @staticmethod
     def list():
         with session_factory() as session:
@@ -20,10 +21,9 @@ class ChannelGateway:
             channel = result.scalar()
             return channel
         
-    @staticmethod
-    def create(name: str):
+    def create(self, name: str):
         with session_factory() as session:
-            session.add(Channel(name=name))
+            session.add(Channel(name=name, id=self.generate_id()))
             session.commit()
             
     @staticmethod
