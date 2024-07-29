@@ -28,7 +28,7 @@ async def process_start_command(message: Message):
             await message.answer(text=LEXICON_RU['/access_denied'])
         # Добавление неизвестного пользователя
         else:
-            UserGateway.create(username)
+            UserGateway.create(UserGateway, username)
             await message.answer(text=LEXICON_RU['/access_denied'])
     except:
         await message.answer(text=LEXICON_RU['start_bot_error'])
