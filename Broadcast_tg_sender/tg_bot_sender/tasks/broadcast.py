@@ -22,6 +22,9 @@ async def on_message(message: AbstractIncomingMessage) -> None:
                 if message_dict['type'] == 'photo':
                     photo_url = settings.s3_client.s3_signature + message_dict['file_path']
                     await bot.send_photo(channel.name, photo_url, caption=message_dict['text'])
+                if message_dict['type'] == 'video':
+                    photo_url = settings.s3_client.s3_signature + message_dict['file_path']
+                    await bot.send_video(channel.name, photo_url, caption=message_dict['text'])
                 if message_dict['type'] == 'text':
                     await bot.send_message(channel.name, message_dict['text'])
             except:
