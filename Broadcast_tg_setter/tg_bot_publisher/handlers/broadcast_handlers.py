@@ -114,4 +114,4 @@ async def process_broadcast_video(message: Message, state: FSMContext):
             await message.answer(text=LEXICON_RU['/access_denied'])
     except:
         await message.answer(text=LEXICON_RU['broadcast_error'])
-        logger.info('Error while processing broadcast with photo')
+        logger.info('Error while processing broadcast with video')
