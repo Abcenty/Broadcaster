@@ -4,6 +4,7 @@ from aio_pika import ExchangeType, connect
 from aio_pika.abc import AbstractIncomingMessage
 from bot import get_bot
 from services.queries.channel.orm import ChannelGateway
+from services.queries.group.orm import ChannelGroupGateway
 from config_data.config import settings
 
 bot = get_bot()
@@ -14,10 +15,16 @@ async def on_message(message: AbstractIncomingMessage) -> None:
     async with message.process():
         encode_list = "".join(bytes.decode(message.body, encoding='utf-8')).split("<!#!>")
         message_dict = {}
+        channels = []
         for kw in encode_list:
             logger.info(f'KW: {kw.split("<!&!>")}')
             message_dict[kw.split("<!&!>")[0]] = kw.split("<!&!>")[1]
-        for channel in ChannelGateway.list():
+        if message_dict['target'] == 'ALL':
+            channels = ChannelGateway.list()
+        else:
+            group = message_dict['target']
+            channels = ChannelGroupGateway.get(group).channels
+        for channel in channels:
             try:
                 if message_dict['type'] == 'photo':
                     photo_url = settings.s3_client.s3_signature + message_dict['file_path']

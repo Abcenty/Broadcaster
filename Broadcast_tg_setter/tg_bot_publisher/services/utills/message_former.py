@@ -11,5 +11,5 @@ class MessageType(Enum):
     """Видео с подписью или без"""
 
 
-def format_message(type: MessageType | str, text: str = "", file_path: str = None):
-    return f"type<!&!>{type}<!#!>file_path<!&!>{file_path}<!#!>text<!&!>{text}"
+def format_message(type: MessageType | str, target: str, text: str = "", file_path: str = None):
+    return f"type<!&!>{type}<!#!>file_path<!&!>{file_path}<!#!>text<!&!>{text}<!#!>target<!&!>{target}"

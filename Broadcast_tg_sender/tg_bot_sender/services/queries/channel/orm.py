@@ -29,5 +29,6 @@ class ChannelGateway(BaseService):
     @staticmethod
     def delete(name: str):
         with session_factory() as session:
-            session.delete(Channel(name=name))
+            query = session.query(Channel).filter(Channel.name == name).first()
+            session.delete(query)
             session.commit()
