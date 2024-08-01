@@ -30,3 +30,11 @@ cancel_button: ReplyKeyboardMarkup = ReplyKeyboardBuilder().row(
     one_time_keyboard=True,
     resize_keyboard=True
 )
+
+backward_button: ReplyKeyboardMarkup = ReplyKeyboardBuilder().row(
+    button_backward,
+    width=6
+).as_markup(
+    one_time_keyboard=True,
+    resize_keyboard=True
+)

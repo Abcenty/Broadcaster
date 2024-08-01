@@ -11,6 +11,9 @@ class FSMFillForm(StatesGroup):
     delete_channel = State()    
     delete_channel_group = State()
     show_channels_of_group = State()
+    update_group_waiting_name = State() 
     update_group = State()    
-    process_group_updating = State()
+    process_change_group_name = State()
+    process_add_group_channels = State()
+    process_delete_group_channels = State()
  

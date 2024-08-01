@@ -16,9 +16,9 @@ channel_group_buttons_builder.row(button_add_channel_group,
                       button_show_channel_groups,
                       button_delete_channel_group,
                       button_show_channels_of_group,
-                      button_backward,
                       button_update_group,
-                      width=6)
+                      button_backward,
+                      width=10)
 
 channel_group_buttons: ReplyKeyboardMarkup = channel_group_buttons_builder.as_markup(
     one_time_keyboard=True,

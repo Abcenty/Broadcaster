@@ -124,7 +124,7 @@ async def process_show_channel_groups(message: Message):
     try:
         if UserGateway.get_is_authorized(username):
             await message.answer(text=LEXICON_RU['show_channel_groups_answer'], reply_markup=channel_group_buttons)
-            channel_groups = [channel_group.name for channel_group in ChannelGroupGateway.list()]
+            channel_groups = [channel_group.name for channel_group in ChannelGroupGateway.get_list()]
             text = ", ".join (channel_groups).replace(", ", "\n")
             await message.answer(text=text, reply_markup=channel_group_buttons)
         else:
@@ -159,8 +159,8 @@ async def process_show_channels_of_group(message: Message, state: FSMContext):
             else:
                 channels = [channel.name for channel in ChannelGroupGateway.get(message.text).channels]
                 text = ", ".join(channels).replace(", ", "\n")
-                await message.answer(text=f"{LEXICON_RU['add_channel_group_success']}\n{text}",
-                                     reply_markup=channel_group_buttons)
+                await message.answer(text=f"{LEXICON_RU['show_channels_of_group_success']}\n{text}",
+                                        reply_markup=channel_group_buttons)
             await state.set_state(FSMFillForm.channel_group_management)
         else:
             await message.answer(text=LEXICON_RU['/access_denied'])
