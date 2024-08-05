@@ -16,8 +16,6 @@ LEXICON_RU: dict[str, str] = {
     
     
     
-    'broadcast_management': 'Управление рассылками',
-    
     'channels_management': 'Управление каналами',
     
     'channel_groups_management': 'Управление группами каналов',
@@ -25,8 +23,6 @@ LEXICON_RU: dict[str, str] = {
     'backward': 'Назад',
     
     
-    
-    'start_broadcast': 'Провести рассылку',
     
     'total_broadcast': 'Рассылка по всем каналам',
     
@@ -58,7 +54,11 @@ LEXICON_RU: dict[str, str] = {
     
     'broadcast_management_answer': 'Вы в панеле управления расслыками, выберите тип рассылки:',
     
-    'broadcast_total_answer': 'Вы выбрали тип рассылки по <b>ВСЕМ<b> каналам',
+    'broadcast_total_answer': 'Вы выбрали тип рассылки по <b>ВСЕМ</b> каналам\n\n'
+    'Введите сообщение для рассылки:',
+    
+    'process_group_broadcast_answer': 'Группа для рассылки принята\n\n'
+    'Теперь введите сообщение для рассылки',
     
     'channels_management_answer': 'Вы в панеле управления каналами',
     
