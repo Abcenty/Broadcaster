@@ -19,20 +19,20 @@ bot = get_bot()
 @router.message(CommandStart(), StateFilter(default_state))
 async def process_start_command(message: Message):
     username = message.from_user.username
-    try:
-        # Проверка на известность и права доступа
-        if UserGateway.get(username) and UserGateway.get_is_authorized(username):
-            await message.answer(text=LEXICON_RU['/start'], reply_markup=general_buttons)
-        # Проверка только на известность если нет прав
-        elif UserGateway.get(username):
-            await message.answer(text=LEXICON_RU['/access_denied'])
-        # Добавление неизвестного пользователя
-        else:
-            UserGateway.create(UserGateway, username)
-            await message.answer(text=LEXICON_RU['/access_denied'])
-    except:
-        await message.answer(text=LEXICON_RU['start_bot_error'])
-        logger.info('Error while starting bot by user')       
+    # try:
+    # Проверка на известность и права доступа
+    if UserGateway.get(username) and UserGateway.get_is_authorized(username):
+        await message.answer(text=LEXICON_RU['/start'], reply_markup=general_buttons)
+    # Проверка только на известность если нет прав
+    elif UserGateway.get(username):
+        await message.answer(text=LEXICON_RU['/access_denied'])
+    # Добавление неизвестного пользователя
+    else:
+        UserGateway.create(UserGateway, username)
+        await message.answer(text=LEXICON_RU['/access_denied'])
+    # except:
+    #     await message.answer(text=LEXICON_RU['start_bot_error'])
+    #     logger.info('Error while starting bot by user')       
     
 # Этот хэндлер срабатывает на команду /help
 @router.message(Command(commands='help'), StateFilter(default_state))
@@ -69,8 +69,8 @@ async def process_incorrect_message(message: Message):
     try:
         await message.answer(text=LEXICON_RU['other_answer'])
     except:
-        await message.answer(text=LEXICON_RU['backward_error'])
-        logger.info('Error while returning to main menu')
+        await message.answer(text=LEXICON_RU['processing_incorrect_message_error'])
+        logger.info('Error while processing incorrect message')
     
 
     
