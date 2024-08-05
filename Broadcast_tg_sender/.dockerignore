@@ -1,0 +1,14 @@
+# Python cache
+__pycache__
+
+# Poetry
+poetry.lock
+
+# Dot files
+.mypy_cache
+.ruff_cache
+.vscode
+.env
+
+# Env
+.venv

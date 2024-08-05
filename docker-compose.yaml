@@ -1,0 +1,39 @@
+volumes:
+  postgresql:
+services:
+  pg_db:
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5531}:5531
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    restart: always
+  broadcast_tg_sender:
+    build: ./Broadcast_tg_sender
+    restart: always
+    depends_on:
+      - rabbitmq
+      - pg_db
+    env_file:
+      - ./Broadcast_tg_sender/.env
+    environment:
+      - DB_HOST=pg_db
+      - AMQP_HOST=rabbitmq
+    command: python ./tg_bot_sender/main.py
+  broadcast_tg_setter:
+    build: ./Broadcast_tg_setter
+    restart: always
+    depends_on:
+      - rabbitmq
+      - pg_db
+    env_file:
+      - ./Broadcast_tg_setter/.env
+    environment:
+      - DB_HOST=pg_db
+      - AMQP_HOST=rabbitmq
+    command: python ./tg_bot_publisher/main.py
