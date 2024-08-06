@@ -15,6 +15,7 @@ LEXICON_RU: dict[str, str] = {
     'update_group_cancel': 'Назад',
     
     
+    'broadcast_management': 'Управление рассылками',
     
     'channels_management': 'Управление каналами',
     
