@@ -1,7 +1,6 @@
-from uuid import UUID
-from sqlalchemy import String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
-from db.database import intpk
+from sqlalchemy import String, Uuid
+from uuid import UUID
 from db.models.base import Base
 
 class Users(Base):

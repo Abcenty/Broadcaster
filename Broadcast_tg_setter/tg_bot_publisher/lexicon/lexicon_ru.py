@@ -16,8 +16,6 @@ LEXICON_RU: dict[str, str] = {
     
     
     
-    'broadcast_management': 'Управление рассылками',
-    
     'channels_management': 'Управление каналами',
     
     'channel_groups_management': 'Управление группами каналов',
@@ -26,7 +24,9 @@ LEXICON_RU: dict[str, str] = {
     
     
     
-    'start_broadcast': 'Провести рассылку',
+    'total_broadcast': 'Рассылка по всем каналам',
+    
+    'group_broadcast': 'Рассылка по группе',
     
     'add_channel': 'Добавить канал',
     
@@ -52,7 +52,13 @@ LEXICON_RU: dict[str, str] = {
     
     
     
-    'broadcast_management_answer': 'Вы в панеле управления расслыками',
+    'broadcast_management_answer': 'Вы в панеле управления расслыками, выберите тип рассылки:',
+    
+    'broadcast_total_answer': 'Вы выбрали тип рассылки по <b>ВСЕМ</b> каналам\n\n'
+    'Введите сообщение для рассылки:',
+    
+    'process_group_broadcast_answer': 'Группа для рассылки принята\n\n'
+    'Теперь введите сообщение для рассылки',
     
     'channels_management_answer': 'Вы в панеле управления каналами',
     
@@ -109,6 +115,8 @@ LEXICON_RU: dict[str, str] = {
     'delete_channels_from_group_success': 'Каналы из группы успешно удалены',
     
     'show_channels_of_group_success': 'Список каналов введенной группы:',
+    
+    'group_broadcast_answer': 'Введите группу для рассылки',
     
     
     
@@ -190,5 +198,7 @@ LEXICON_RU: dict[str, str] = {
     'delete_channels_from_group_error': 'Ошибка при удалении каналов из группы каналов, возможно вы ввели список каналов неправильно, '
     'попробуйте ввести еще раз список каналов через точку с запятой без пробелов. Лучше удалять одновременно не больше 10 каналов',
     
-    'change_group_name_error': 'Ошибка при изменении названия группы каналов, попробуйте еще раз либо сообщите об ошибке @kAzaKed'
+    'change_group_name_error': 'Ошибка при изменении названия группы каналов, попробуйте еще раз либо сообщите об ошибке @kAzaKed',
+    
+    'setting_broadcast_type_error': 'Ошибка при выборе типа рассылки, попробуйте еще раз либо сообщите об ошибке @kAzaKed'
 }

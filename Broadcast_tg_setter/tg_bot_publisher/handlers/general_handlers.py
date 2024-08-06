@@ -45,8 +45,8 @@ async def process_help_command(message: Message):
     
 # Этот хэндлер срабатывает на возврат в главное меню из панелей управления
 @router.message(F.text == LEXICON_RU['backward'], StateFilter(FSMFillForm.channels_management,
-                                                              FSMFillForm.broadcast_management,
-                                                              FSMFillForm.channel_group_management))
+                                                              FSMFillForm.channel_group_management,
+                                                              FSMFillForm.set_broadcast_type))
 async def process_backward(message: Message, state: FSMContext):
     username = message.from_user.username
     try:
