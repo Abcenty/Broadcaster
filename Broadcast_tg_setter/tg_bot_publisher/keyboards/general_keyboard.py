@@ -3,7 +3,6 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 from lexicon.lexicon_ru import LEXICON_RU
 
-button_broadcast_management = KeyboardButton(text=LEXICON_RU['broadcast_management'])
 button_channels_management = KeyboardButton(text=LEXICON_RU['channels_management'])
 button_channel_group_management = KeyboardButton(text=LEXICON_RU['channel_groups_management'])
 
