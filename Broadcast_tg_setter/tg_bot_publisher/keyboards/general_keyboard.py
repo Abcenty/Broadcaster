@@ -12,7 +12,7 @@ button_cancel = KeyboardButton(text=LEXICON_RU['cancel'])
 
 general_buttons_builder = ReplyKeyboardBuilder()
 
-general_buttons_builder.row(button_broadcast_management,
+general_buttons_builder.row(
                       button_channels_management,
                       button_channel_group_management,
                       width=6)
